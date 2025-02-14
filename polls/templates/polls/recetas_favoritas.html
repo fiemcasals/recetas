@@ -1,0 +1,51 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+{% load static %}
+
+<body>
+    <!-- Cargar el archivo de estilos -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lista_recetas.css' %}">
+    
+    <h1 class="titulo-recetas">Mis Recetas Favoritas</h1>
+    
+    {% if recetas_favoritas %}
+        <ul class="lista-recetas">
+            {% for receta in recetas_favoritas %}
+                <li class="item-receta">
+                    <div class="receta-contenedor">
+                        <div class="detalle-receta">
+                            <h2 class="titulo-receta">{{ receta.titulo }}</h2>
+                            <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+                            <p><strong>Pasos de preparación:</strong> {{ receta.pasos_de_preparacion }}</p>
+                            <p><strong>Tiempo de cocción:</strong> {{ receta.tiempo_de_coccion }} minutos</p>
+                            <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+                            <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+                            <p><strong>Ingredientes:</strong></p>
+                            <ul>
+                                {% for ingrediente in receta.ingredientes.all %}
+                                    <li>{{ ingrediente.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        {% if receta.imagen %}
+                            <img src="{{ receta.imagen.url }}" alt="Imagen de receta" class="imagen-receta">
+                        {% else %}
+                            <p>No hay imagen disponible.</p>
+                        {% endif %}
+                    </div>
+                    <!--boton cocinado-->
+                    <form method="post" action="{% url 'registrar_cocinado' receta.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="boton-cocinado">Marcar como Cocinado</button>
+                    </form>
+                    
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes recetas favoritas.</p>
+    {% endif %}
+</body>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<h1>Historial de Recetas Cocinadas</h1>
+<ul>
+    {% for item in historial %}
+        <li>{{ item.receta.titulo }} - Cocinado el {{ item.fecha_cocinado }}</li>
+    {% empty %}
+        <p>No has cocinado ninguna receta aún.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

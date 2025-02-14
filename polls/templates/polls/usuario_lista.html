@@ -1,0 +1,10 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<!-- usuario_lista.html -->
+<h2>Lista de Usuarios</h2>
+    <ul>
+        {% for usuario in usuarios %}
+            <li>{{ usuario.nombre }} - {{ usuario.email }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

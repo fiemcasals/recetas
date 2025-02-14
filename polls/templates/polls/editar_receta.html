@@ -1,0 +1,20 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Cargar el archivo de estilos -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/ingresarReceta.css' %}">
+    
+<h1 class="titulo">Editar receta: {{ receta.titulo }}</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Mostrar el formulario con los datos de la receta -->
+    {{ form.as_p }}  <!-- Muestra los campos del formulario -->
+    
+    <button type="submit">Guardar cambios</button>
+</form>
+
+<a href="{% url 'lista_recetas' %}">Cancelar</a> <!-- Enlace para cancelar la edición y volver al detalle -->
+
+{% endblock %}

@@ -1,0 +1,94 @@
+/* Asegura que todo el contenido del formulario esté centrado */
+.seccionRegistrarse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Estilo del formulario */
+form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Limita el tamaño del formulario */
+}
+
+/* Título del formulario */
+.tituloRegistrarse {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo de los campos de entrada */
+input[type="text"],
+input[type="password"],
+input[type="email"] { /* También incluye input[type="email"] para la entrada de correos */
+    width: 100%; /* Asegura que los campos tengan el mismo ancho */
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Incluye el padding dentro del ancho total */
+    font-size: 16px;
+}
+
+/* Estilo de los botones */
+.boton {
+    width: 100%; /* Asegura que el botón tenga el mismo ancho */
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #0056b3; /* Cambia el color al pasar el ratón */
+}
+
+/* Estilo para los enlaces de ayuda */
+.ayuda {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.ayuda:hover {
+    text-decoration: underline;
+}
+
+/* Estilo de los mensajes de error */
+.error-text {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: left; /* Alinea el texto del error a la izquierda */
+}
+
+/* Asegurarse de que el body ocupe toda la altura de la ventana */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    height: 100%; /* Asegura que el body ocupe toda la altura disponible */
+}
+
+/* Contenedor principal para centrar el formulario */
+main {
+    display: flex;
+    justify-content: center;  /* Centra el formulario horizontalmente */
+    align-items: center;  /* Centra el formulario verticalmente */
+    height: 100vh;  /* Hace que el contenedor ocupe toda la altura de la pantalla */
+    padding: 20px;  /* Asegura que el formulario no toque los bordes de la pantalla */
+    box-sizing: border-box;  /* Incluye el padding en el cálculo del tamaño total */
+}

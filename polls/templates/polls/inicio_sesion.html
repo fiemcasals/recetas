@@ -1,0 +1,35 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+
+{% load static %}
+
+<body>
+    <main>
+
+        <!-- Cargar el archivo de estilos -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_sesion.css' %}">
+
+        <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
+            <form action="{% url 'inicio_sesion' %}" method="POST">
+                <h2 class="tituloRegistrarse">Iniciar Sesión</h2>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div>
+                    <input class="boton" type="submit" value="Iniciar Sesión">
+                </div>
+                <div>
+                    <a id="ayuda" class="ayuda" href="{% url 'registro' %}">Registrarse</a>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+
+{% endblock %}

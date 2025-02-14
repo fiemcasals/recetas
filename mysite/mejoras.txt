@@ -1,0 +1,7 @@
+1. cuando le doy al corazon: no quiero que se recargue la pagina, solo que cambie de color
+2. ver tema de forma, colores y tamanios
+3. quiero que el corazon no seleccionado como favorito tenga un color, para poderlo ver
+4. en la view de levantar recetas, tanto en propias como genericas, lo unico que cambia es un filtro que me gustaria que se aplique siempre, para reutilizar codigo, solo que en una tenga un usuario para filtrar, y en el otro sean todos o no tenga no se como se podria manejar.
+5. en listamisrecetasview, los ingredientes lo maneja de manera mas engorrosa que en mis recetas, y debe tener adaptado el html tambien para manjerarlo de esa manera. tratar de optimizar
+6.cuando selecciono una comida preparada, me redirecciona a comidas favoritas, y yo no quiero que haga nada
+7. la base tiene estilos, hay que sacarlos si qremos personalizar mejor las cosas, para tener mas claridad

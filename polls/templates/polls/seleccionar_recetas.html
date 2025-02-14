@@ -1,0 +1,9 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<h2>Seleccionar Recetas</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generar Lista de Compras</button>
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "polls/base.html" %}
+{% block content %}
+<h2>Lista de Compras</h2>
+
+<ul id="lista-compras">
+    {% for item in lista_compras %}
+        <li id="item-{{ item.id }}">
+            {{ item.ingrediente.nombre }} - {{ item.cantidad }} {{ item.unidad }}
+            <button class="eliminar-item" data-item-id="{{ item.id }}">❌</button>
+        </li>
+    {% empty %}
+        <li>No hay artículos en la lista de compras.</li>
+    {% endfor %}
+</ul>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".eliminar-item").forEach(button => {
+        button.addEventListener("click", function() {
+            let itemId = this.getAttribute("data-item-id");
+
+            fetch("{% url 'ver_lista_compras' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: "item_id=" + itemId,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("item-" + itemId).remove();
+                }
+            });
+        });
+    });
+});
+</script>
+{% endblock %}
+

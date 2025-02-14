@@ -1,0 +1,5 @@
+/* Aseguramos que todos los inputs tengan el mismo ancho */
+input {
+    width: 100%;
+    box-sizing: border-box;
+}

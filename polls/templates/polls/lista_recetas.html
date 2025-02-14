@@ -1,0 +1,105 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+{% load static %}
+
+<body>
+    <head>
+        <meta name="csrf-token" content="{% csrf_token %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/lista_recetas.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/lista_recetas_propias.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/favorito.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/cocinado.css' %}">
+    </head>
+
+    <h1 class="titulo-recetas">Recetas Guardadas</h1>
+    
+    <!-- Formulario de búsqueda -->
+    <form method="get" action="{% url 'lista_recetas' %}">
+        <input type="text" name="q" placeholder="Buscar receta por título, categoría o ingrediente" value="{{ query }}">
+        <button type="submit">Buscar</button>
+    </form>
+    
+    {% if recetas_con_ingredientes %}
+        <ul class="lista-recetas">
+            {% for receta in recetas_con_ingredientes %}
+                <li class="item-receta">
+                    <div class="receta-contenedor">
+                        <div class="detalle-receta">
+                            <h2 class="titulo-receta">{{ receta.titulo }}</h2>
+                            <p><strong>Descripción:</strong> {{ receta.descripcion }}</p>
+                            <p><strong>Pasos de preparación:</strong> {{ receta.pasos_de_preparacion }}</p>
+                            <p><strong>Tiempo de cocción:</strong> {{ receta.tiempo_de_coccion }} minutos</p>
+                            <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+                            <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+                            <p><strong>Ingredientes:</strong></p>
+                            <ul>
+                                {% for ingrediente in receta.ingredientes.all %}
+                                    <li>{{ ingrediente.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                             
+                        </div>
+                         {% if receta.imagen %}
+                            <img src="{{ receta.imagen.url }}" alt="Imagen de receta" class="imagen-receta">
+                        {% else %}
+                            <p>No hay imagen disponible.</p>
+                        {% endif %}
+
+                        <div class="contenedor-botones">
+                        <!-- Formulario para agregar un comentario/calificación -->
+                            <form method="GET" action="{% url 'comentarios_calificaciones' receta.id %}">
+                                {% csrf_token %}
+                                <!-- No se necesita el campo 'comentario' o 'calificación' aquí ya que se enviarían como parámetros -->
+                                <button type="submit" class="boton-ancho-pequeno">Enviar Comentario/Calificación</button>
+                            </form>
+
+                            <!-- Formulario de favorito --> 
+                            <form method="post" action="{% url 'marcar_favorito' receta.id %}" 
+                            class="formulario-favorito" 
+                            id="favorito-form-{{ receta.id }}" 
+                            onsubmit="marcarFavorito(event, '{{ receta.id }}')">
+                          
+                          {% csrf_token %}
+                          
+                          <button type="submit" class="boton-favorito" id="favorito-btn-{{ receta.id }}">
+                              <i id="icono-favorito-{{ receta.id }}" 
+                                 class="fa {% if receta in request.user.favoritos.all %}fa-heart red{% else %}fa-heart-o green{% endif %}">
+                              </i>
+                              <span id="texto-favorito-{{ receta.id }}">
+                                  {% if receta in request.user.favoritos.all %}
+                                      ¡Seleccionado como Favorito!
+                                  {% else %}
+                                      ¿Favorito?
+                                  {% endif %}
+                              </span>
+                          </button>
+                      </form>
+                      
+                         <!-- Formulario de cocinado -->
+                        <form method="post" action="{% url 'registrar_cocinado' receta.id %}" 
+                        id="cocinado-form-{{ receta.id }}" 
+                        onsubmit="(new Cocinado('{{ receta.id }}')).marcarCocinado(event)">
+                        {% csrf_token %}
+                        <button type="submit" class="boton-cocinado" id="cocinado-btn-{{ receta.id }}">
+                        <span id="texto-cocinado-{{ receta.id }}">Marcar como Cocinado</span>
+                        </button>
+                        </form>
+
+                        </div>
+                   
+
+                 
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay recetas disponibles.</p>
+    {% endif %}
+        <!-- js para favorito -->
+<script type="text/javascript" src="{% static 'js/favorito.js' %}"></script>
+<!--js para cocinado-->
+<script type="text/javascript" src="{% static 'js/cocinado.js' %}"></script>
+</body>
+{% endblock %}

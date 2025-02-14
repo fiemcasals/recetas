@@ -1,0 +1,29 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<h1>Estadísticas y Reportes</h1>
+
+<h2>Recetas Más Cocinadas</h2>
+<ul>
+    {% for item in recetas_cocinadas %}
+        <li>{{ item.receta__titulo }}: {{ item.total_cocinados }} veces cocinada</li>
+    {% endfor %}
+</ul>
+
+<h2>Categorías Más Populares</h2>
+<ul>
+    {% for item in categorias_populares %}
+        <li>{{ item.categoria }}: {{ item.cantidad }} recetas</li>
+    {% endfor %}
+</ul>
+
+<h2>Recetas Más Cocinadas por Ti</h2>
+<ul>
+    {% for item in recetas_usuario %}
+        <li>{{ item.receta__titulo }}: {{ item.total_cocinados }} veces cocinada</li>
+    {% endfor %}
+</ul>
+
+<h2>Estadísticas Generales</h2>
+<p>Total de recetas cocinadas: {{ total_recetas_cocinadas }}</p>
+{% endblock %}

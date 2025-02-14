@@ -1,0 +1,134 @@
+/* Estilo para el título principal */
+.titulo-recetas {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Contenedor general para las recetas */
+.lista-recetas {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo de cada item de receta */
+.item-receta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Detalle de la receta */
+.detalle-receta {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Estilo para los botones */
+.contenedor-botones {
+    display: flex;
+    justify-content: space-between; /* Separa los botones */
+    gap: 35px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+ 
+   
+
+/* Botón de editar receta */
+.boton-editar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    margin: 15px;
+}
+
+.boton-editar:hover {
+    background-color: #45a049;
+}
+
+/* Botón de favorito */
+.boton-favorito {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #ffcc00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 200px;
+}
+
+.boton-favorito i {
+    font-size: 20px;
+}
+
+.boton-favorito:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+
+/* Botón de cocinado */
+.boton-cocinar {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.boton-cocinar:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.boton-cocinar:active {
+    transform: scale(0.95);
+}
+
+/* Estilo para el botón cocinado marcado */
+.boton-cocinada {
+    background-color: #f39c12; /* Amarillo para marcado */
+    color: white;
+    font-weight: bold;
+}
+
+.boton-cocinada:hover {
+    background-color: #e67e22;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .contenedor-botones {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .boton-editar, .boton-favorito, .boton-cocinar {
+        width: 100%;
+    }
+}

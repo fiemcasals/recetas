@@ -1,0 +1,34 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+
+<h1>{{ receta.titulo }}</h1>
+
+<!-- Promedio de calificación -->
+{% if promedio_calificacion %}
+    <p><strong>Promedio de Calificación:</strong> {{ promedio_calificacion|floatformat:1 }} estrellas</p>
+{% else %}
+    <p><strong>Promedio de Calificación:</strong> No hay calificaciones aún.</p>
+{% endif %}
+
+<!-- Formulario para agregar un comentario/calificación -->
+<h3>Agregar un comentario/calificación</h3>
+<form method="POST" action="{% url 'agregar_comentario' receta.id %}">
+    {% csrf_token %}<!--para proteger el formulario contra ataques de tipo CSRF (Cross-Site Request Forgery). Esto agrega un token único a cada solicitud que ayuda a garantizar que la solicitud provenga del propio sitio y no de un sitio externo malicioso.-->
+    {{ form.as_p }} <!-- Aquí es donde tu formulario se renderiza-->
+    <button type="submit" class="boton">Enviar comentario</button>
+</form>
+
+<!-- Mostrar comentarios de todas las recetas -->
+<h3>Comentarios</h3>
+<ul>
+    {% for comentario in comentarios %}
+        <li>
+            <p><strong>{{ comentario.usuario.username }}</strong> - {{ comentario.calificacion }} estrellas</p>
+            <p>{{ comentario.comentario }}</p>
+            <p><small>{{ comentario.fecha_creacion }}</small></p>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

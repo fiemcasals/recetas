@@ -1,0 +1,86 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+
+{% load static %}
+
+<body>
+    <main id="main" class="main">
+
+        <!-- Cargar el archivo de estilos -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/registro.css' %}">
+
+        <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
+            <form method="POST">
+                {% csrf_token %}
+                <h2 class="tituloRegistrarse">Registro de Usuario</h2>
+
+                <!-- Mostrar los mensajes globales de error -->
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+    
+                <!-- Campo de nombre de usuario -->
+                <div>
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    <div class="error-text">{{ form.username.errors|safe }}</div>
+                </div>
+                
+                <!-- Campo de email -->
+                <div>
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    <div class="error-text">{{ form.email.errors|safe }}</div>
+                </div>
+
+                <!-- Campo de apellido -->
+                <div>
+                    {{ form.apellido.label_tag }}
+                    {{ form.apellido }}
+                    <div class="error-text">{{ form.apellido.errors|safe }}</div>
+                </div>
+                
+                <!-- Campo de fecha de nacimiento -->
+                <div>
+                    {{ form.fecha_nacimiento.label_tag }}
+                    {{ form.fecha_nacimiento }}
+                    <div class="error-text">{{ form.fecha_nacimiento.errors |safe}}</div>
+                </div>
+                
+                <!-- Campo de contraseña 1 -->
+                <div>
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    <div class="error-text">{{ form.password1.errors|safe }}</div>
+                </div>
+                
+                <!-- Campo de contraseña 2 -->
+                <div>
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    <div class="error-text">{{ form.password2.errors|safe }}</div>
+                </div>
+                
+                <!-- Botón de Registro -->
+                <div>
+                    <button class="boton" type="submit">Registrarse</button>
+                </div>
+                
+                <!-- Ayuda -->
+                <div>
+                    <a class="ayuda" href="#">¿Necesitas ayuda?</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+{% endblock %}

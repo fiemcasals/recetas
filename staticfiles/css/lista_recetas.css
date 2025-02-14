@@ -1,0 +1,117 @@
+/* Estilo para el título principal */
+.titulo-recetas {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Contenedor general para las recetas */
+.lista-recetas {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo de cada item de receta */
+.item-receta {
+    display: flex;
+    justify-content: space-between; /* Separar la imagen y el contenido */
+    align-items: center; /* Centrar verticalmente */
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Detalle de la receta (texto) */
+.detalle-receta {
+    flex: 1;
+    padding-right: 20px; /* Espacio entre texto y la imagen */
+}
+
+/* Título de la receta */
+.titulo-receta {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Estilo para las listas de ingredientes */
+.detalle-receta ul {
+    padding-left: 20px;
+}
+
+/* Imagen de la receta */
+.imagen-receta {
+    max-width: 600px; /* Limitar el tamaño de la imagen */
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Estilo para el contenedor de recetas */
+.receta-contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilos adicionales para texto y enlaces */
+p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Aseguramos que los enlaces estén resaltados */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Mejorar la presentación en dispositivos móviles */
+@media (max-width: 768px) {
+    .item-receta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .detalle-receta {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .imagen-receta {
+        margin-top: 15px;
+        max-width: 100%;
+    }
+}
+
+.boton-editar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    
+}
+
+
+.boton-editar:hover {
+    background-color: #45a049;
+}
+
+.boton-ancho-pequeno {
+    width: 15px; /* Ancho fijo */
+    display: inline-block; /* Asegura que el ancho se aplique */
+    overflow: hidden; /* Evita que el contenido desborde */
+    white-space: nowrap; /* Evita que el texto se ajuste a otra línea */
+    text-overflow: ellipsis; /* Opcional: agrega "..." si el texto es demasiado largo */
+}

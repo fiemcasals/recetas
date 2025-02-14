@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="csrf-token" content="{% csrf_token %}">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        /* Barra de navegación */
+        nav {
+            background-color: #333; /* Fondo oscuro para la barra */
+            position: relative;
+            padding: 10px;
+        }
+
+        /* Lista de elementos del menú */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #ddd;
+            color: black;
+            border-radius: 5px;
+        }
+
+        /* Estilo para el ícono de hamburguesa (solo visible en pantallas pequeñas) */
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+
+        .menu-icon div {
+            width: 35px;
+            height: 5px;
+            background-color: white;
+            margin: 6px 0;
+            border-radius: 5px;
+        }
+
+        /* Estilo para el menú en pantallas pequeñas */
+        nav ul.open {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 50px;
+            width: 100%;
+            background-color: #333;
+            left: 0;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            /* Ocultar el menú en pantallas pequeñas por defecto */
+            nav ul {
+                display: none;
+                width: 100%;
+                background-color: #333;
+            }
+
+            /* Mostrar el menú cuando esté abierto */
+            nav ul.open {
+                display: flex;
+            }
+
+            /* Mostrar el ícono de hamburguesa solo en pantallas pequeñas */
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        /* Para pantallas grandes, mostrar el menú en fila horizontal */
+        @media (min-width: 769px) {
+            nav ul {
+                display: flex;
+            }
+
+            .menu-icon {
+                display: none;
+            }
+        }
+
+        /* Estilos para centrar contenido en la página */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        
+
+        .tituloRegistrarse {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Estilos para inputs y botón */
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .boton {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .boton:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos para enlace de registro */
+        .ayuda {
+            display: inline-block;
+            margin-top: 15px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .ayuda:hover {
+            text-decoration: underline;
+        }
+
+        .error-text {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: left;
+            display: none; /* Oculto por defecto */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación con ícono hamburguesa -->
+    <nav>
+        <!-- Ícono de hamburguesa -->
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Lista del menú -->
+        <ul id="menu">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'salir' %}">Salir</a></li>
+                <li><a href="{% url 'ingresar_receta' %}">Ingresar receta</a></li>
+                <li><a href="{% url 'usuario_lista' %}">Listar usuarios</a></li>
+                <li><a href="{% url 'lista_recetas_usuario' %}">Mis recetas</a></li>
+                <li><a href="{% url 'seleccionar_recetas' %}">Generar lista de compras</a></li>
+                <li><a href="{% url 'ver_lista_compras' %}">Ver lista de compras</a></li>
+                <li><a href="{% url 'recetas_favoritas' %}">Ver recetas favoritas</a></li>
+                <li><a href="{% url 'historial_cocinados' %}">Historial de Cocinados</a></li>  
+                <li><a href="{% url 'reporte_estadisticas' %}">Estadísticas</a></li>
+                <li><a href="{% url 'exportar_estadisticas_csv' %}">Exportar Estadísticas (CSV)</a></li>
+                <li><a href="{% url 'notificaciones' %}">Notificaciones</a></li> 
+                {% for receta in recetas %}
+                    {% if receta.id %}
+                        <li><a href="{% url 'comentarios_calificaciones' receta.id %}">Comentarios y Calificaciones</a></li>
+                    {% else %}
+                        <li><a href="#">Comentarios y Calificaciones</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+            {% else %}
+                <li><a href="{% url 'registro' %}">Registro</a></li>
+                <li><a href="{% url 'inicio_sesion' %}">Iniciar sesión</a></li>
+            {% endif %}
+        
+            <!-- Siempre visible: Lista de recetas -->
+            <li><a href="{% url 'lista_recetas' %}">Listar recetas</a></li>
+        </ul>
+        
+        
+        
+        
+        
+        
+        </nav>
+        
+        {% block content %}
+        
+   
+    {% endblock %}
+
+    <script>
+        // Función para alternar el estado del menú hamburguesa (mostrar/ocultar)
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('open'); // Alterna la clase 'open' para mostrar/ocultar el menú
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Mis Notificaciones</h1>
+    {% if notificaciones %}
+        <ul>
+            {% for notificacion in notificaciones %}
+    <li id="notificacion-{{ notificacion.id }}" class="{% if notificacion.leida %}leida{% else %}nueva{% endif %}">
+        <p><strong>Comentario de {{ comentario.usuario }} en la receta "{{ notificacion.receta.titulo }}"</strong></p>
+        <p><em>Calificación: {{ notificacion.calificacion }} estrellas</em></p>
+        <p>{{ notificacion.comentario }}</p>
+        <p><small>Fecha: {{ notificacion.fecha_creacion }}</small></p>
+        {% if notificacion.leida %}
+            <p><em>Leída</em></p>
+        {% else %}
+            <button onclick="marcarComoLeida('{{ notificacion.id }}')">Marcar como Leída</button>
+        {% endif %}
+    </li>
+{% endfor %}
+
+        </ul>
+    {% else %}
+        <p>No tienes notificaciones.</p>
+    {% endif %}
+
+    <script type="text/javascript" src="{% static 'js/notificaciones.js' %}"></script>
+{% endblock %}

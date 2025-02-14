@@ -1,0 +1,149 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="mainIngresoReceta">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ingresarReceta.css' %}">
+    
+    <section class="seccionRecetaIngreso">
+        <h1 class="titulo">Agregar Nueva Receta</h1>
+
+        <!-- Formulario para ingresar una receta -->
+        <form id="formReceta" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Campos de la receta -->
+            <div>
+                <label for="tituloReceta">Título</label>
+                <input type="text" name="titulo" id="tituloReceta" required>
+            </div>
+            <div>
+                <label for="descripcionReceta">Descripción</label>
+                <textarea name="descripcion" id="descripcionReceta" rows="3" required></textarea>
+            </div>
+            
+            <!-- Campos para añadir ingredientes -->
+            <div>
+                <label for="nombreIngrediente">Nombre del Ingrediente</label>
+                <input type="text" id="nombreIngrediente" placeholder="Nombre del ingrediente">
+            </div>
+            <div>
+                <label for="cantidadIngrediente">Cantidad</label>
+                <input type="number" id="cantidadIngrediente" placeholder="Cantidad" step="0.01">
+            </div>
+            <div>
+                <label for="unidadIngrediente">Unidad de Medida</label>
+                <input type="text" id="unidadIngrediente" placeholder="Unidad de medida">
+            </div>
+            
+            <div>
+                <button type="button" id="botonAgregarIngrediente" class="botonAccion">Añadir Ingrediente</button>
+            </div>
+
+            <!-- Lista de ingredientes -->
+            <div>
+                <h3>Ingredientes:</h3>
+                <div id="listaIngredientes"></div>
+            </div>
+
+            <!-- Pasos de preparación -->
+            <div>
+                <label for="preparacionReceta">Pasos de Preparación</label>
+                <textarea name="pasos_de_preparacion" id="preparacionReceta" rows="4" required></textarea>
+            </div>
+            
+            <!-- Tiempo, dificultad y categoría -->
+            <div>
+                <label for="tiempoCoccion">Tiempo de Cocción (minutos)</label>
+                <input type="number" name="tiempo_de_coccion" id="tiempoCoccion" required>
+            </div>
+            <div>
+                <label for="nivelDificultad">Dificultad</label>
+                <select name="dificultad" id="nivelDificultad" required>
+                    <option value="Baja">Baja</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            </div>
+            <div>
+                <label for="categoriaReceta">Categoría</label>
+                <select name="categoria" id="categoriaReceta" required>
+                    <option value="Desayuno">Desayuno</option>
+                    <option value="Almuerzo">Almuerzo</option>
+                    <option value="Cena">Cena</option>
+                    <option value="Postre">Postre</option>
+                </select>
+            </div>
+
+            <!-- Imagen -->
+            <div>
+                <label for="imagenReceta">Imagen</label>
+                <input type="file" name="imagen" id="imagenReceta">
+            </div>
+
+            <!-- Enviar el formulario -->
+            <div>
+                <input type="submit" value="Registrar Receta" class="botonAccion">
+            </div>
+
+            <!-- Campo oculto para almacenar ingredientes en JSON -->
+            <input type="hidden" id="ingredientesOcultos" name="ingredientes_json">
+            
+        </form>
+    </section>
+
+    <hr>
+
+</main>
+
+<script>
+    const listaIngredientes = document.getElementById('listaIngredientes');
+    const botonAgregarIngrediente = document.getElementById('botonAgregarIngrediente');
+    let ingredientes = [];
+
+    // Agregar ingrediente a la lista
+    botonAgregarIngrediente.addEventListener('click', () => {
+        const nombre = document.getElementById('nombreIngrediente').value.trim();
+        const cantidad = document.getElementById('cantidadIngrediente').value;
+        const unidad = document.getElementById('unidadIngrediente').value.trim();
+
+        if (nombre && cantidad && unidad) {
+            const ingrediente = { nombre, cantidad, unidad };
+            ingredientes.push(ingrediente);
+            actualizarListaIngredientes();
+            
+            // Limpiar los campos
+            document.getElementById('nombreIngrediente').value = '';
+            document.getElementById('cantidadIngrediente').value = '';
+            document.getElementById('unidadIngrediente').value = '';
+        } else {
+            alert("Por favor completa todos los campos del ingrediente.");
+        }
+    });
+
+    // Actualizar la lista de ingredientes en el HTML
+    function actualizarListaIngredientes() {
+        listaIngredientes.innerHTML = '';
+        ingredientes.forEach((ingrediente, index) => {
+            const itemIngrediente = document.createElement('div');
+            itemIngrediente.classList.add('itemIngrediente');
+            itemIngrediente.innerHTML = `
+                ${ingrediente.nombre} - ${ingrediente.cantidad} ${ingrediente.unidad}
+                <button type="button" onclick="eliminarIngrediente(${index})">Eliminar</button>
+            `;
+            listaIngredientes.appendChild(itemIngrediente);
+        });
+
+        // Guardar la lista en el campo oculto
+        document.getElementById('ingredientesOcultos').value = JSON.stringify(ingredientes);
+    }
+
+    // Eliminar ingrediente de la lista
+    function eliminarIngrediente(index) {
+        ingredientes.splice(index, 1);
+        actualizarListaIngredientes();
+    }
+</script>
+
+{% endblock %}
