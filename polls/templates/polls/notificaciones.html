@@ -7,7 +7,7 @@
         <ul>
             {% for notificacion in notificaciones %}
     <li id="notificacion-{{ notificacion.id }}" class="{% if notificacion.leida %}leida{% else %}nueva{% endif %}">
-        <p><strong>Comentario de {{ comentario.usuario }} en la receta "{{ notificacion.receta.titulo }}"</strong></p>
+        <p><strong>Comentario de {{ notificacion.usuario_comentador.username }} en la receta "{{ notificacion.receta.titulo }}"</strong></p>
         <p><em>Calificación: {{ notificacion.calificacion }} estrellas</em></p>
         <p>{{ notificacion.comentario }}</p>
         <p><small>Fecha: {{ notificacion.fecha_creacion }}</small></p>
