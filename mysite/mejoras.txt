@@ -5,3 +5,7 @@
 5. en listamisrecetasview, los ingredientes lo maneja de manera mas engorrosa que en mis recetas, y debe tener adaptado el html tambien para manjerarlo de esa manera. tratar de optimizar
 6.cuando selecciono una comida preparada, me redirecciona a comidas favoritas, y yo no quiero que haga nada
 7. la base tiene estilos, hay que sacarlos si qremos personalizar mejor las cosas, para tener mas claridad
+
+
+8.calificaiones no anda
+9. leido tampoco

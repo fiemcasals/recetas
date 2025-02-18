@@ -1,0 +1,1 @@
+2025/02/17 12:51:30 [error] 203#203: *70 "/var/www/html/historial/index.html" is not found (2: No such file or directory), client: 172.18.0.1, server: localhost-nginx-proxy-manager, request: "GET /historial/ HTTP/1.1", host: "mauri.com", referrer: "http://mauri.com/lista_recetas/"

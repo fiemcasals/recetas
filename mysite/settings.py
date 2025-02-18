@@ -25,7 +25,7 @@ DEBUG = True
 
 # Hosts permitidos. Especifica los dominios que pueden acceder a tu aplicación.
 # Si está vacío, se permiten todas las direcciones.
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']#me puedo conectar desde cualquier lado
 
 # Definición de las aplicaciones de la web
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',  # Para gestionar archivos estáticos como CSS y JS
     'polls.apps.PollsConfig',  # La aplicación 'polls' (en este caso es una app personalizada)
     'recetas',
+
     
     
 ]
@@ -85,10 +86,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Django utiliza bases de datos para almacenar información
 # Aquí se especifica que se usará SQLite como base de datos
 # Y se guarda el archivo de base de datos en la misma carpeta que el archivo settings.py
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Motor de base de datos: SQLite
-        'NAME': os.path.join(BASE_DIR, 'database.sqlite3'),  # Ruta al archivo de base de datos
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'recetaDB',
+        'USER': 'root',
+        'PASSWORD': 'notSecureChangeMe',
+        'HOST': 'db',
+        'PORT': '3306',
     }
 }
 
@@ -113,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internacionalización
 # Configura el idioma y la zona horaria del proyecto
-LANGUAGE_CODE = 'en-us'  # Establece el idioma de la aplicación (inglés de Estados Unidos)
+LANGUAGE_CODE = 'es-es'  # Establece el idioma de la aplicación (inglés de Estados Unidos)
 
 TIME_ZONE = 'UTC'  # Establece la zona horaria del proyecto (UTC)
 
@@ -141,7 +147,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-AUTH_USER_MODEL = 'polls.Usuario'
+#AUTH_USER_MODEL = 'polls.Usuario'
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend de autenticación predeterminado
 ]

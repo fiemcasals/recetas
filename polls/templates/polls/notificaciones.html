@@ -2,27 +2,36 @@
 {% load static %}
 
 {% block content %}
+    <header>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/notificaciones.css' %}">
+    </header>
     <h1>Mis Notificaciones</h1>
+    
+    
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+
     {% if notificaciones %}
         <ul>
             {% for notificacion in notificaciones %}
     <li id="notificacion-{{ notificacion.id }}" class="{% if notificacion.leida %}leida{% else %}nueva{% endif %}">
-        <p><strong>Comentario de {{ notificacion.usuario_comentador.username }} en la receta "{{ notificacion.receta.titulo }}"</strong></p>
+        <p><strong>Comentario de {{ notificacion.usuario }} en la receta "{{ notificacion.receta.titulo }}"</strong></p>
         <p><em>Calificación: {{ notificacion.calificacion }} estrellas</em></p>
         <p>{{ notificacion.comentario }}</p>
         <p><small>Fecha: {{ notificacion.fecha_creacion }}</small></p>
-        {% if notificacion.leida %}
-            <p><em>Leída</em></p>
-        {% else %}
-            <button onclick="marcarComoLeida('{{ notificacion.id }}')">Marcar como Leída</button>
-        {% endif %}
     </li>
-{% endfor %}
 
+    <!-- Botón con el ID y los datos de la notificación -->
+    <button id="boton" class="btn-leer" data-id="{{ notificacion.id }}">
+        Leer
+    </button>
+
+    {% endfor %}
         </ul>
     {% else %}
         <p>No tienes notificaciones.</p>
     {% endif %}
 
-    <script type="text/javascript" src="{% static 'js/notificaciones.js' %}"></script>
+    <!-- Link a tu archivo JavaScript -->
+    <script src="{% static 'js/notificaciones.js' %}"></script>
 {% endblock %}

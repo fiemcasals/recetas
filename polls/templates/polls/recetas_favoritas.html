@@ -5,6 +5,7 @@
 <body>
     <!-- Cargar el archivo de estilos -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/lista_recetas.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cocinado.css' %}">
     
     <h1 class="titulo-recetas">Mis Recetas Favoritas</h1>
     
@@ -34,10 +35,16 @@
                             <p>No hay imagen disponible.</p>
                         {% endif %}
                     </div>
-                    <!--boton cocinado-->
-                    <form method="post" action="{% url 'registrar_cocinado' receta.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="boton-cocinado">Marcar como Cocinado</button>
+
+                    
+                    <!-- Formulario de cocinado -->
+                    <form method="post" action="{% url 'registrar_cocinado' receta.id %}" 
+                    id="cocinado-form-{{ receta.id }}" 
+                    onsubmit="(new Cocinado('{{ receta.id }}')).marcarCocinado(event)">
+                    {% csrf_token %}
+                    <button type="submit" class="boton-cocinado" id="cocinado-btn-{{ receta.id }}">
+                    <span id="texto-cocinado-{{ receta.id }}">Marcar como Cocinado</span>
+                    </button>
                     </form>
                     
                 </li>
@@ -46,6 +53,9 @@
     {% else %}
         <p>No tienes recetas favoritas.</p>
     {% endif %}
+
+<!--js para cocinado-->
+<script type="text/javascript" src="{% static 'js/cocinado.js' %}"></script>
 </body>
 
 {% endblock %}

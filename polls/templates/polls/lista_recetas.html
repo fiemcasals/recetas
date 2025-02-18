@@ -47,13 +47,15 @@
                         {% endif %}
 
                         <div class="contenedor-botones">
-                        <!-- Formulario para agregar un comentario/calificación -->
+                           <!-- Formulario para agregar un comentario/calificación -->
+                            {% if user.is_authenticated %}
                             <form method="GET" action="{% url 'comentarios_calificaciones' receta.id %}">
                                 {% csrf_token %}
                                 <!-- No se necesita el campo 'comentario' o 'calificación' aquí ya que se enviarían como parámetros -->
                                 <button type="submit" class="boton-ancho-pequeno">Enviar Comentario/Calificación</button>
                             </form>
-
+                            
+                            
                             <!-- Formulario de favorito --> 
                             <form method="post" action="{% url 'marcar_favorito' receta.id %}" 
                             class="formulario-favorito" 
@@ -75,6 +77,14 @@
                               </span>
                           </button>
                       </form>
+                            
+                            {% else %}
+                            <!-- El usuario no está autenticado, se puede mostrar un mensaje o redirigir -->
+                            <p>Por favor, inicia sesión para poder agregar un comentario/calificación.</p>
+                            {% endif %}
+
+
+                            
                       
                          <!-- Formulario de cocinado -->
                         <form method="post" action="{% url 'registrar_cocinado' receta.id %}" 

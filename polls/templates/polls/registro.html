@@ -9,77 +9,69 @@
         <!-- Cargar el archivo de estilos -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/registro.css' %}">
 
-        <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
+        <section class="seccionRegistrarse">
             <form method="POST">
                 {% csrf_token %}
                 <h2 class="tituloRegistrarse">Registro de Usuario</h2>
 
-                <!-- Mostrar los mensajes globales de error -->
-                {% if messages %}
-                    <div class="alert alert-danger">
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                
     
                 <!-- Campo de nombre de usuario -->
                 <div>
-                    {{ form.username.label_tag }}
-                    {{ form.username }}
-                    <div class="error-text">{{ form.username.errors|safe }}</div>
+                    {{ form.username.label_tag }}  {# Muestra la etiqueta del campo (ej: "Nombre de usuario") #}
+                    {{ form.username }}  {# Renderiza el campo de entrada #}
                 </div>
                 
                 <!-- Campo de email -->
                 <div>
                     {{ form.email.label_tag }}
                     {{ form.email }}
-                    <div class="error-text">{{ form.email.errors|safe }}</div>
+                    {% if form.email.errors %}
+                        <div class="error-text">{{ form.email.errors|safe }}</div>
+                    {% endif %}
                 </div>
 
-                <!-- Campo de apellido -->
-                <div>
-                    {{ form.apellido.label_tag }}
-                    {{ form.apellido }}
-                    <div class="error-text">{{ form.apellido.errors|safe }}</div>
-                </div>
-                
-                <!-- Campo de fecha de nacimiento -->
-                <div>
-                    {{ form.fecha_nacimiento.label_tag }}
-                    {{ form.fecha_nacimiento }}
-                    <div class="error-text">{{ form.fecha_nacimiento.errors |safe}}</div>
-                </div>
-                
                 <!-- Campo de contraseña 1 -->
                 <div>
-                    {{ form.password1.label_tag }}
-                    {{ form.password1 }}
-                    <div class="error-text">{{ form.password1.errors|safe }}</div>
+                    {{ form.password1.label_tag }}  {# Etiqueta para la primera contraseña #}
+                    {{ form.password1 }}  {# Campo de entrada de la primera contraseña #}
+                 
                 </div>
                 
                 <!-- Campo de contraseña 2 -->
                 <div>
-                    {{ form.password2.label_tag }}
-                    {{ form.password2 }}
-                    <div class="error-text">{{ form.password2.errors|safe }}</div>
+                    {{ form.password2.label_tag }}  {# Etiqueta para la segunda contraseña #}
+                    {{ form.password2 }}  {# Campo de entrada de la segunda contraseña #}
+                    
                 </div>
+
+                <!-- Mostrar errores generales del formulario -->
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Errores en el formulario:</strong>
+                        <ul>
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                    <p>"las contraseñas no coinciden"</p>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
                 
                 <!-- Botón de Registro -->
                 <div>
                     <button class="boton" type="submit">Registrarse</button>
                 </div>
-                
-                <!-- Ayuda -->
-                <div>
-                    <a class="ayuda" href="#">¿Necesitas ayuda?</a>
-                </div>
+
             </form>
         </section>
     </main>
 
     <script>
-        AOS.init();
+        AOS.init();  
     </script>
 </body>
 

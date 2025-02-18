@@ -1,0 +1,69 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+
+
+/* Estilos para centrar contenido en la página */
+main {
+    display: flex;
+    justify-content: center;  /* Centra el formulario horizontalmente */
+    align-items: center;  /* Centra el formulario verticalmente */
+    height: 100vh;  /* Hace que el contenedor ocupe toda la altura de la pantalla */
+    padding: 20px;  /* Asegura que el formulario no toque los bordes de la pantalla */
+    box-sizing: border-box;  /* Incluye el padding en el cálculo del tamaño total */
+}
+
+.seccionRecetaIngreso{
+    width: 1200px;
+    margin-top: 650px;
+
+}
+
+.titulo{
+    display: flex;
+    justify-content: center;
+}
+/* Estilo común para el formulario, con ancho del 70% y centrado */
+form {
+    
+    justify-content: center;
+    width: 70%;  /* Establece el ancho del formulario al 70% */
+    margin: 0 auto;  /* Centra el formulario horizontalmente */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo para centrar el contenido dentro de los campos */
+form input, form select, form textarea {
+    width: 100%;  /* Asegúrate de que los campos ocupen todo el ancho del formulario */
+    box-sizing: border-box;  /* Asegúrate de que el padding se incluya en el ancho total */
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Estilo para el botón de submit y otros botones */
+form button, form input[type="submit"] {
+    width: auto;  /* No es necesario que los botones ocupen todo el ancho */
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Hover para los botones */
+form button:hover, form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+

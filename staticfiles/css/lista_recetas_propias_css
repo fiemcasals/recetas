@@ -1,0 +1,9 @@
+/* Para cuando la receta está en favoritos */
+.red {
+    color: red;
+}
+
+/* Para cuando la receta no está en favoritos */
+.green {
+    color: green;
+}

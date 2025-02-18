@@ -1,0 +1,17 @@
+.boton-favorito {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-flex; /* Asegura que el botón y el ícono estén alineados */
+    align-items: center;
+    gap: 5px; /* Espacio entre el ícono y el texto */
+    padding: 5px;
+}
+
+.boton-favorito i {
+    font-size: 20px; /* Ajusta el tamaño del ícono */
+}
+
+.red { color: red; }
+.green { color: green; }

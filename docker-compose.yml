@@ -1,0 +1,43 @@
+version: '3.3'
+
+services:
+  db:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: notSecureChangeMe
+      MYSQL_DATABASE: recetaDB
+    volumes:
+      - ./db_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my_custom.cnf  # Volumen para la configuración personalizada
+   
+  django:
+    build: .
+    restart: always
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+      - UPLOAD_LIMIT= 100M
+    depends_on:
+      - db
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+      - ./static:/data/nginx/static  # Volumen para estáticos
+      - ./media:/data/nginx/media    # Volumen para medios

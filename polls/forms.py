@@ -1,13 +1,10 @@
-from .models import Usuario
-from django import forms
-from .models import Receta, Ingrediente
-from django.forms import modelformset_factory
 from django.contrib.auth.forms import UserCreationForm
-
 from django import forms
-from .models import Receta, RecetaIngrediente, Ingrediente
+from django.forms import modelformset_factory
+from .models import Receta, Ingrediente, Comentario
+from django.contrib.auth.models import User 
 
-
+# Formularios para las recetas e ingredientes
 class RecetaForm(forms.ModelForm):
     class Meta:
         model = Receta
@@ -23,38 +20,46 @@ class IngredienteForm(forms.ModelForm):
 IngredienteFormSet = modelformset_factory(Ingrediente, form=IngredienteForm, extra=1)
 
 
+
+from django.core.exceptions import ValidationError
+
+# Formulario de registro que usa el modelo User de Django
 class RegistroForm(UserCreationForm):
     class Meta:
-        model = Usuario
-        fields = ['username','email', 'fecha_nacimiento', 'password1', 'password2']
+        model = User  # Usamos el modelo User de Django
+        fields = ['username', 'email', 'password1', 'password2']
 
-
-    # Validación personalizada para la contraseña, si deseas más seguridad
+    # Validación personalizada para las contraseñas
     def clean_password(self):
+        # Se obtiene la data limpia usando el método 'clean' del formulario
         cleaned_data = super().clean()
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-        if password1 != password2:
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+        if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Las contraseñas no coinciden.")
-
-        # Agregar reglas adicionales para la contraseña aquí
+        # Aquí se pueden agregar reglas adicionales para la contraseña si se desea
         return cleaned_data
 
-    # Validación personalizada para el campo 'email', si es necesario
+    # Validación personalizada para el campo 'email'
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        # Aquí puedes agregar validación para evitar duplicados u otros requisitos
+        # Verifica que el email no se encuentre ya registrado
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Este email ya está registrado.")
         return email
 
+
+# Formulario de inicio de sesión
 class LoginForm(forms.Form):
-        username = forms.CharField(max_length=100, label="Nombre de usuario")
-        password = forms.CharField(widget=forms.PasswordInput(), label="Contraseña")
+    username = forms.CharField(
+        max_length=100,
+        required=True,  # Cambiado a True para que sea obligatorio
+        initial="Usuario"  # Equivalente a default="Usuario"
+    )
+    password = forms.CharField(widget=forms.PasswordInput(), label="Contraseña")
 
 
-
-from django import forms
-from .models import Comentario
-
+# Formulario para comentarios
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
@@ -65,8 +70,7 @@ class ComentarioForm(forms.ModelForm):
         }
 
 
-#lista de compras
-
+# Formulario para seleccionar recetas
 class SeleccionarRecetasForm(forms.Form):
     recetas = forms.ModelMultipleChoiceField(
         queryset=Receta.objects.all(),

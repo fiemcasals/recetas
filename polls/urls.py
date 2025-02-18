@@ -27,9 +27,9 @@ urlpatterns = [
     path('historial/', HistorialCocinadoView.as_view(), name='historial_cocinados'),
     path('reporte_estadisticas/', ReporteEstadisticasView.as_view(), name='reporte_estadisticas'),
     path('exportar_estadisticas_csv/', ExportarEstadisticasCSVView.as_view(), name='exportar_estadisticas_csv'),
-    path('notificaciones/marcar_leida/<int:notificacion_id>/', MarcarNotificacionLeidaView.as_view(), name='marcar_notificacion_leida'),
     path('notificaciones/', NotificacionesView.as_view(), name='notificaciones'),
     path('agregar_comentario/<int:receta_id>/', AgregarComentarioView.as_view(), name='agregar_comentario'),
+    path('notificaciones/marcar_leida/<int:notificacion_id>/', MarcarNotificacionLeidaView.as_view(), name='marcar_notificacion_leida'),
     ]
 
 

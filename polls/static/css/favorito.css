@@ -1,5 +1,5 @@
+/* Estilos para el botón de favorito */
 .boton-favorito {
-    background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -7,11 +7,32 @@
     align-items: center;
     gap: 5px; /* Espacio entre el ícono y el texto */
     padding: 5px;
+    background-color: green; /* Fondo verde visible desde el inicio */
+    color: rgb(24, 21, 21); /* Texto y ícono de color blanco por defecto */
+    border-radius: 5px; /* Opcional, para redondear los bordes */
 }
 
+/* Estilos para el ícono dentro del botón */
 .boton-favorito i {
     font-size: 20px; /* Ajusta el tamaño del ícono */
 }
 
+/* Estado por defecto del ícono (corazón vacío y blanco) */
+.boton-favorito i.fa-heart-o {
+    color: rgb(98, 4, 107); /* Ícono vacío blanco */
+}
+
+/* Estado cuando es favorito (corazón lleno y rojo) */
+.boton-favorito i.fa-heart {
+    color: red; /* Corazón lleno rojo */
+}
+
+/* Clases para cambiar el color del texto */
 .red { color: red; }
 .green { color: green; }
+
+.boton-favorito:hover {
+    opacity: 1;
+    background-color: darkgreen;
+  }
+  
